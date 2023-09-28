@@ -22,45 +22,6 @@ public class BookingSystem {
         String answerStr;
 
         switch (inputString) {
-            case "Add course":
-                System.out.println("Please enter the name of the new course");
-                answerStr = scanner.nextLine();
-                Course newCourse = new Course(answerStr);
-                addCourse(newCourse);
-                System.out.println("Success!");
-                break;
-
-            case "New student":
-                System.out.println("Please enter the students name");
-                answerStr = scanner.nextLine();
-                Student newStudent = new Student(answerStr);
-                System.out.println("Please enter the courses, which this student should be added to (press enter after each course name)");
-                System.out.println("If you are finished entering courses, enter 0");
-                for (int i = 0; i < 5; i++)
-                {
-                    answerStr= scanner.nextLine();
-                    if(answerStr.equals("0")) break;
-                    Course course = getCourse(answerStr);
-                    if(course == null) {
-                        System.out.println("This course does not exist, try again.");
-                        i--;
-                        continue;
-                    }
-                    if(course.studentList.contains(newStudent)){
-                        System.out.println("Student is already added to this group!");
-                        i--;
-                        continue;
-                    }
-                    course.studentList.add(newStudent);
-                }
-                System.out.println("Success");
-                break;
-
-            case "Generate groups" :
-
-
-                break;
-
             case "Example":
                 // Generate students and give them
 
@@ -69,11 +30,49 @@ public class BookingSystem {
             default:
                 System.out.println("That's not a real command bro, do the command 'Help' to see all commands");
                 break;
+        }
+    }
+
+    public void generateExampleScenario(int numberOfCourses, int numberOfStudents)
+    {
+        // using a set to guarantee unique numbers, because they don't allow duplicates.
+        Set<Integer> uniqueNumbers = new HashSet<>();
+        Random random = new Random();
+
+        // generate x example courses
+        for(int i = 0; i < numberOfCourses; i++)
+        {
+            Course course = new Course("Course " + i);
+            courseList.add(course);
+        }
+
+        // generate x students and assign them to 5 random courses
+        for(int i = 0; i < numberOfStudents; i++)
+        {
+            Student student = new Student("Student " + i);
+            student.assignRandomCourses(courseList);
+        }
+    }
+
+    public void assignRandomGroups(int minStudents) {
+
+    }
+
+
+    public static void main(String[] args) {
+        BookingSystem bookingSystem = new BookingSystem();
+        bookingSystem.generateExampleScenario(10, 200);
+        for(Course course : bookingSystem.courseList) {
+            System.out.println("Course has students: ");
+
+            for (Student student : course.studentList) {
+                System.out.println(student.getName());
+            }
 
         }
 
-
     }
+
     public void runSystem() {
         Scanner scanner = new Scanner(System.in);
         String response;
