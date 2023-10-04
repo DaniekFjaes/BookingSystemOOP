@@ -1,3 +1,4 @@
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -24,9 +25,10 @@ public class Reservation {
         return true;
     }
 
+    // Requirement: Rooms can be booked instantaneously or in advance (but only for the current week)
     public static boolean isValidDate(LocalDate date) {
-        return !date.isAfter(LocalDate.now().plusDays(7));
+        int daysUntilNextWeek = 7 - LocalDate.now().getDayOfWeek().getValue();
+        return !date.isAfter(LocalDate.now().plusDays(daysUntilNextWeek));
     }
-
 
 }

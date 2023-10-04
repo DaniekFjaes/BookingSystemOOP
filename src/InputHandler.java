@@ -209,7 +209,8 @@ public class InputHandler {
         try{
             LocalDate reservationDate = LocalDate.of(scanner.nextInt(), scanner.nextInt(), scanner.nextInt() ); // Very evil double parameter scan, but I'm still not sorry!
             if(!Reservation.isValidDate(reservationDate)) {
-                System.out.println("Reservations cannot be made ");
+                System.out.println("Reservations can only be made in the current week!");
+                return;
             }
         } catch (DateTimeException e) {
             System.out.println("Invalid date!");

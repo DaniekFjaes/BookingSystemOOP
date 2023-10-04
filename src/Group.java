@@ -35,11 +35,30 @@ public class Group {
     public void setGroupNumber(int groupNumber) {
         this.groupNumber = groupNumber;
     }
-
     public static Group findGroupByNumber(int number) {
         for(Group group : allGroups) {
             if (group.groupNumber == number) return group;
         }
         return null;
     }
+
+    // checks if this group has priority over another group
+    public boolean hasPriority(Group otherGroup) {
+        //Each group can book rooms for a total of four hours per week with the highest priority.
+        if(this.totalBookedMinutes > 240 && otherGroup.totalBookedMinutes <= 240) return false;
+        if(this.totalBookedMinutes <= 240 && otherGroup.totalBookedMinutes > 240) return true;
+
+        //Afterwards, the priority is inversely proportional to the number of hours that the group has already booked that week.
+        if(this.totalBookedMinutes > otherGroup.totalBookedMinutes) return false;
+        if(this.totalBookedMinutes < otherGroup.totalBookedMinutes) return true;
+
+        //Additionally, if there are two groups with the same priority that want to book the
+        //same room at the same time, priority is given to the group with a larger number of students.
+        if(this.studentList.size() > otherGroup.getStudentList().size()) return true;
+        if(this.studentList.size() < otherGroup.getStudentList().size()) return false;
+
+        //If none of the priority conditions are met, it's first come, first served. (Not specified in the assignment)
+        return false;
+    }
+
 }
