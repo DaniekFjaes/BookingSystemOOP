@@ -6,10 +6,12 @@ public class Group {
     private static int groupCount = 0;
     private int groupNumber;
     private  List<Student> studentList = new ArrayList<>();
+    private static List<Group> allGroups = new ArrayList<>();
 
     public Group() {
         groupNumber = groupCount;
         groupCount += 1;
+        allGroups.add(this);
     }
 
     public boolean isFull() {
@@ -30,5 +32,12 @@ public class Group {
     }
     public void setGroupNumber(int groupNumber) {
         this.groupNumber = groupNumber;
+    }
+
+    public static Group findGroupByNumber(int number) {
+        for(Group group : allGroups) {
+            if (group.groupNumber == number) return group;
+        }
+        return null;
     }
 }
