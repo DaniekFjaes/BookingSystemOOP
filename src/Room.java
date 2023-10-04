@@ -9,14 +9,13 @@ public class Room {
     private String roomName;
 
     public Room(String name) {
-       this.roomName = name;
-       allRooms.add(this);
+        this.roomName = name;
+        allRooms.add(this);
     }
 
-    public static Room findRoomByName(String roomName)
-    {
-        for(Room room : allRooms) {
-            if(room.roomName.equals(roomName)) return room;
+    public static Room findRoomByName(String roomName) {
+        for (Room room : allRooms) {
+            if (room.roomName.equals(roomName)) return room;
         }
         return null;
     }
@@ -24,6 +23,5 @@ public class Room {
     public void reserveRoom(Reservation reservation) {
 
     }
-
 
 }
