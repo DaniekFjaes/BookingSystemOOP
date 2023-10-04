@@ -8,6 +8,8 @@ public class Group {
     private  List<Student> studentList = new ArrayList<>();
     private static List<Group> allGroups = new ArrayList<>();
 
+    private int totalBookedMinutes = 0;
+
     public Group() {
         groupNumber = groupCount;
         groupCount += 1;

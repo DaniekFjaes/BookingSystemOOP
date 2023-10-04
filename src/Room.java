@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
 
 public class Room {
     public static List<Room> allRooms = new ArrayList<>();
 
+    private List<Reservation> reservations = new ArrayList<>();
     private String roomName;
 
     public Room(String name) {
@@ -18,4 +20,10 @@ public class Room {
         }
         return null;
     }
+
+    public void reserveRoom(Reservation reservation) {
+
+    }
+
+
 }

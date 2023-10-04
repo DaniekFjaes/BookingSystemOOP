@@ -1,4 +1,7 @@
+import java.sql.Time;
+import java.time.*;
 import java.util.*;
+import java.util.function.IntToLongFunction;
 
 public class InputHandler {
 
@@ -190,7 +193,28 @@ public class InputHandler {
                 return;
         }
 
-        System.out.println("How many hours until the reservation starts?"); // Not super userfriendly, but I can't be bothered to make a parse date/time
+        System.out.println("Please enter the hour of the reservation, press enter, then enter the minutes (24 hour clock)");
+        try{
+            LocalTime reservationTime = LocalTime.of(scanner.nextInt(), scanner.nextInt()); // Very evil double parameter scan, but I'm still not sorry!
+            if(!Reservation.isValidTime(reservationTime, reservationLength)) {
+                System.out.println("You can only make reservations between 8 and 17");
+                return;
+            }
+        } catch (DateTimeException e) {
+            System.out.println("Invalid time!");
+            return;
+        }
+
+        System.out.println("Please enter the year, then enter the month, and finally enter the day.");
+        try{
+            LocalDate reservationDate = LocalDate.of(scanner.nextInt(), scanner.nextInt(), scanner.nextInt() ); // Very evil double parameter scan, but I'm still not sorry!
+            if(!Reservation.isValidDate(reservationDate)) {
+                System.out.println("Reservations cannot be made ");
+            }
+        } catch (DateTimeException e) {
+            System.out.println("Invalid date!");
+            return;
+        }
 
 
     }
